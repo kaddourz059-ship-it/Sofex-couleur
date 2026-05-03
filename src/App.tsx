@@ -44,7 +44,7 @@ export default function App() {
   const [showPrivacy, setShowPrivacy] = useState(false);
 
   const productImages = [
-    "https://i.postimg.cc/nzg09VYx/photo-2026-05-03-13-33-58.jpg",
+    "https://i.postimg.cc/wvXShbFX/photo-2026-05-03-15-40-05.jpg",
     "https://i.postimg.cc/NMSp2G7c/photo-2026-05-03-13-34-05.jpg",
     "https://i.postimg.cc/Gmq8Qrvq/photo-2026-05-02-13-32-02.jpg",
     "https://i.postimg.cc/Qd09bscS/photo-2026-05-02-13-32-08.jpg",
@@ -179,7 +179,7 @@ export default function App() {
                 {/* Details */}
                 <div className="lg:col-span-5 space-y-12 bg-black/20 p-10 rounded-[60px] border border-white/5 backdrop-blur-3xl relative overflow-hidden">
                   <div className="absolute -top-20 -right-20 w-64 h-64 bg-brand-blue/10 blur-[100px]" />
-                  <div className="space-y-6 relative z-10">
+                    <div className="space-y-6 relative z-10">
                     <div className="flex items-center gap-1 text-brand-orange">
                       {[1,2,3,4,5].map(i => <Star key={i} size={16} className="fill-brand-orange" />)}
                       <span className="text-xs font-black text-white/40 mr-3 uppercase">(150+ مراجعة إيجابية)</span>
@@ -188,7 +188,7 @@ export default function App() {
                       SOFEX <br/>
                       <span className="text-brand-blue">ULTRA PRO</span>
                     </h1>
-                    <p className="text-stone-400 font-medium italic text-2xl leading-relaxed">الجيل الجديد من قارورات إعادة التلوين الاحترافية.</p>
+                    <p className="text-stone-400 font-medium italic text-2xl leading-relaxed">الجيل الجديد من قارورات إعادة التلوين الاحترافية (متوفر بوزن 1 كغ و 2 كغ فقط).</p>
                   </div>
 
                   <div className="space-y-4 relative z-10">
@@ -200,7 +200,7 @@ export default function App() {
 
                   <div className="space-y-12 relative z-10">
                     <div className="space-y-6">
-                      <h3 className="text-xs font-black text-stone-500 uppercase tracking-widest italic pr-4">1. الحصّة المطلوبة:</h3>
+                      <h3 className="text-xs font-black text-stone-500 uppercase tracking-widest italic pr-4">1. اختر حجم القارورة:</h3>
                       <div className="grid grid-cols-2 gap-4">
                         {(['1kg', '2kg'] as const).map(s => (
                           <button 
@@ -208,19 +208,20 @@ export default function App() {
                             onClick={() => setSelectedSize(s)}
                             className={`option-btn ${selectedSize === s ? 'option-btn-active' : 'option-btn-inactive'}`}
                           >
-                            <span className="text-3xl font-black italic">{s === '1kg' ? '1كـغ' : '2كـغ'}</span>
-                            <span className="text-[10px] font-black uppercase opacity-60 mt-1">{s === '1kg' ? 'قياسي' : 'توفير'}</span>
+                            <span className="text-3xl font-black italic">{s === '1kg' ? '1 كـغ' : '2 كـغ'}</span>
+                            <span className="text-[10px] font-black uppercase opacity-60 mt-1">{s === '1kg' ? 'حجم قياسي' : 'حجم توفيري'}</span>
                           </button>
                         ))}
                       </div>
                     </div>
 
                     <div className="space-y-6">
-                      <h3 className="text-xs font-black text-stone-500 uppercase tracking-widest italic pr-4">2. عدد القارورات:</h3>
+                      <h3 className="text-xs font-black text-stone-500 uppercase tracking-widest italic pr-4">2. كم عدد القارورات التي تريدها؟</h3>
                       <div className="flex items-center gap-6 bg-white/5 p-3 rounded-3xl w-fit border border-white/5">
                         <button onClick={() => setQuantity(q => q + 1)} className="w-14 h-14 bg-brand-blue text-white rounded-2xl shadow-xl flex items-center justify-center text-4xl font-black">+</button>
                         <span className="text-5xl font-black italic w-12 text-center text-white">{quantity}</span>
                         <button onClick={() => setQuantity(q => Math.max(1, q - 1))} className="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-4xl font-black hover:bg-white/20">-</button>
+                        <span className="text-xs font-black text-stone-600 mr-2 uppercase italic">قارورة</span>
                       </div>
                     </div>
 
@@ -396,7 +397,7 @@ export default function App() {
                <h4 className="text-brand-red font-black uppercase tracking-widest text-xs pr-4 border-r-4 border-brand-red">تواصل معنا</h4>
                <div className="space-y-4">
                   <p className="text-4xl font-black italic text-white leading-none">0655110977</p>
-                  <p className="text-xl font-bold italic text-stone-500">الجزائر العاصمة، حي الموز.</p>
+                  <p className="text-xl font-bold italic text-stone-500">الدويرة، الجزائر العاصمة.</p>
                   <p className="text-sm font-bold text-stone-700 uppercase tracking-widest">مفتوح الآن • خدمة 24/7</p>
                </div>
             </div>
