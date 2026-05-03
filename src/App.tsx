@@ -17,20 +17,22 @@ import {
   Facebook,
   AlertTriangle,
   ArrowLeft,
-  ChevronRight
+  ChevronRight,
+  Music
 } from 'lucide-react';
 
 const DELIVERY_PRICES = [
-  { region: "الجزائر العاصمة", home: 500 },
-  { region: "البليدة / بومرداس / تيبازة", home: 700 },
-  { region: "الولاية الكبرى (سطيف، قسنطينة، وهران...)", home: 1000 },
-  { region: "الولايات الداخلية والجنوب", home: 1450 },
+  { region: "الجزائر العاصمة", home: 400 },
+  { region: "البليدة / بومرداس / تيبازة", home: 600 },
+  { region: "الولايات الكبرى (سطيف، قسنطينة، وهران...)", home: 600 },
+  { region: "الولايات الداخلية والجنوب", home: 1200 },
 ];
 
 const TG_TOKEN = "8249247789:AAE9saD1Bjz5L9Zqg_jZae9I5fYet0DzxGY";
 const TG_CHAT_ID = "7917961504";
 const INSTAGRAM_URL = "https://www.instagram.com/sofex03?igsh=eHk4ZmFhN2theHd6";
 const FACEBOOK_URL = "https://www.facebook.com/share/1B3j19TWQ5/";
+const TIKTOK_URL = "https://www.tiktok.com/@sofex0102?_r=1&_t=ZS-963PpA7URTZ";
 
 export default function App() {
   const [view, setView] = useState<'product' | 'checkout'>('product');
@@ -143,6 +145,7 @@ export default function App() {
               <div className="flex items-center gap-4">
                 <a href={FACEBOOK_URL} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full bg-blue-600/10 text-blue-500 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all"><Facebook size={20} /></a>
                 <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full bg-pink-600/10 text-pink-500 flex items-center justify-center hover:bg-pink-600 hover:text-white transition-all"><Instagram size={20} /></a>
+                <a href={TIKTOK_URL} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full bg-stone-600/10 text-white flex items-center justify-center hover:bg-black hover:text-white transition-all"><Music size={20} /></a>
               </div>
             </nav>
 
@@ -374,6 +377,9 @@ export default function App() {
               </a>
               <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center hover:bg-pink-600 transition-all shadow-xl group border border-white/5">
                 <Instagram size={24} className="group-hover:scale-110 transition-transform" />
+              </a>
+              <a href={TIKTOK_URL} target="_blank" rel="noreferrer" className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center hover:bg-white hover:text-black transition-all shadow-xl group border border-white/5">
+                <Music size={24} className="group-hover:scale-110 transition-transform" />
               </a>
             </div>
           </div>
