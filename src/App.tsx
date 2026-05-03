@@ -1,0 +1,470 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import React, { useState, useMemo } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { 
+  Phone, 
+  Truck, 
+  ShoppingCart, 
+  CheckCircle2, 
+  Star,
+  ShieldCheck,
+  Send,
+  Instagram,
+  Facebook,
+  AlertTriangle,
+  ArrowLeft,
+  ChevronRight
+} from 'lucide-react';
+
+const DELIVERY_PRICES = [
+  { region: "الجزائر العاصمة", home: 500 },
+  { region: "البليدة / بومرداس / تيبازة", home: 700 },
+  { region: "الولاية الكبرى (سطيف، قسنطينة، وهران...)", home: 1000 },
+  { region: "الولايات الداخلية والجنوب", home: 1450 },
+];
+
+const TG_TOKEN = "8249247789:AAE9saD1Bjz5L9Zqg_jZae9I5fYet0DzxGY";
+const TG_CHAT_ID = "7917961504";
+const INSTAGRAM_URL = "https://www.instagram.com/sofex03?igsh=eHk4ZmFhN2theHd6";
+const FACEBOOK_URL = "https://www.facebook.com/share/1B3j19TWQ5/";
+
+export default function App() {
+  const [view, setView] = useState<'product' | 'checkout'>('product');
+  const [selectedSize, setSelectedSize] = useState<'1kg' | '2kg'>('1kg');
+  const [quantity, setQuantity] = useState<number>(1);
+  const [activeImage, setActiveImage] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [showPrivacy, setShowPrivacy] = useState(false);
+
+  const productImages = [
+    "https://i.postimg.cc/nzg09VYx/photo-2026-05-03-13-33-58.jpg",
+    "https://i.postimg.cc/NMSp2G7c/photo-2026-05-03-13-34-05.jpg",
+    "https://i.postimg.cc/Gmq8Qrvq/photo-2026-05-02-13-32-02.jpg",
+    "https://i.postimg.cc/Qd09bscS/photo-2026-05-02-13-32-08.jpg",
+    "https://i.postimg.cc/KjPQ3FTt/cas-generated-1766504769277.png"
+  ];
+
+  const priceData = useMemo(() => {
+    return selectedSize === '1kg' 
+      ? { 1: 2400, 2: 4400, 3: 6300, bulk: 2000 } 
+      : { 1: 2900, 2: 5500, 3: 7900, bulk: 2500 };
+  }, [selectedSize]);
+
+  const currentPrice = useMemo(() => {
+    if (quantity === 1) return priceData[1];
+    if (quantity === 2) return priceData[2];
+    if (quantity === 3) return priceData[3];
+    return quantity * priceData.bulk;
+  }, [quantity, priceData]);
+
+  const handleSendTelegram = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const currentForm = e.target as HTMLFormElement;
+    const formDataObj = new FormData(currentForm);
+    setIsSubmitting(true);
+
+    const message = `
+🚀 *طلب جديد من متجر SOFEX*
+━━━━━━━━━━━━━━
+👤 *الزبون:* ${formDataObj.get('name')}
+📞 *الهاتف:* ${formDataObj.get('phone')}
+📍 *العنوان:* ${formDataObj.get('address')}
+━━━━━━━━━━━━━━
+🛍️ *تفاصيل الطلب:*
+- المنتج: قارورة سوفيكس (${selectedSize})
+- الكمية: ${quantity} حبة
+💰 *المجموع:* ${currentPrice} دج
+━━━━━━━━━━━━━━
+✅ *يرجى تأكيد الطلب فوراً.*
+    `.trim();
+
+    try {
+      const response = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: TG_CHAT_ID,
+          text: message,
+          parse_mode: 'Markdown'
+        })
+      });
+
+      if (response.ok) {
+        setFormStatus('success');
+        currentForm.reset();
+      } else {
+        setFormStatus('error');
+      }
+    } catch (error) {
+      setFormStatus('error');
+    } finally {
+      setIsSubmitting(false);
+      setTimeout(() => setFormStatus('idle'), 10000);
+    }
+  };
+
+  return (
+    <div className="min-h-screen hero-gradient selection:bg-brand-blue selection:text-white pb-20">
+      
+      {/* Top Bar */}
+      <div className="bg-brand-red text-white py-2 overflow-hidden whitespace-nowrap border-b border-white/10 uppercase tracking-widest text-[10px] font-black z-[1000] relative">
+        <div className="flex animate-marquee gap-10">
+           <span>⚡️ تخفيضات هائلة: المجموع ينخفض عند شراء أكثر من قطعة واحدة ⚡️</span>
+           <span>🚚 شحن سريع وآمن لـ 58 ولاية جزائرية 🚚</span>
+           <span>⚡️ ضمان الجودة الأصلية أو استرجاع أموالك ⚡️</span>
+        </div>
+      </div>
+
+      <AnimatePresence mode="wait">
+        {view === 'product' ? (
+          <motion.div 
+            key="landing"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, x: -100 }}
+            className="w-full"
+          >
+            {/* Header */}
+            <nav className="h-24 px-6 md:px-12 flex items-center justify-between sticky top-0 bg-black/50 backdrop-blur-xl z-[500] border-b border-white/5">
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 rounded-2xl bg-white p-1 shadow-[0_0_40px_rgba(255,255,255,0.1)]">
+                  <img src="https://i.postimg.cc/Y0hMc7F7/photo-2025-10-17-20-22-46.jpg" className="w-full h-full rounded-xl object-contain" alt="Logo" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-4xl font-black italic tracking-tighter leading-none text-white uppercase">SOFEX</span>
+                  <span className="text-[10px] font-bold text-brand-blue tracking-[0.3em] uppercase">Algeria Elite</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <a href={FACEBOOK_URL} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full bg-blue-600/10 text-blue-500 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all"><Facebook size={20} /></a>
+                <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full bg-pink-600/10 text-pink-500 flex items-center justify-center hover:bg-pink-600 hover:text-white transition-all"><Instagram size={20} /></a>
+              </div>
+            </nav>
+
+            <main className="max-w-7xl mx-auto px-4 pt-12 md:pt-20">
+              <div className="grid lg:grid-cols-12 gap-16 items-start">
+                {/* Images */}
+                <div className="lg:col-span-7 space-y-10">
+                  <motion.div 
+                    layoutId="main-product"
+                    className="card-glass p-4 md:p-8 relative group"
+                  >
+                    <div className="absolute top-8 left-8 z-10 flex flex-col gap-3">
+                       <span className="bg-brand-red text-white px-5 py-2 rounded-xl font-black text-xs shadow-2xl animate-pulse italic">-%40 عرض حصري</span>
+                    </div>
+                    <img src={productImages[activeImage]} className="w-full h-auto rounded-[32px] shadow-2xl transition-transform duration-700 group-hover:scale-[1.02]" alt="Product" />
+                  </motion.div>
+                  
+                  <div className="grid grid-cols-5 gap-4">
+                    {productImages.map((img, idx) => (
+                      <button 
+                        key={idx}
+                        onClick={() => setActiveImage(idx)}
+                        className={`aspect-square rounded-2xl overflow-hidden border-2 transition-all ${activeImage === idx ? 'border-brand-blue shadow-[0_0_20px_rgba(0,102,255,0.4)] scale-105' : 'border-white/10 opacity-40 hover:opacity-100'}`}
+                      >
+                        <img src={img} className="w-full h-full object-cover" alt="thumb" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Details */}
+                <div className="lg:col-span-5 space-y-12 bg-black/20 p-10 rounded-[60px] border border-white/5 backdrop-blur-3xl relative overflow-hidden">
+                  <div className="absolute -top-20 -right-20 w-64 h-64 bg-brand-blue/10 blur-[100px]" />
+                  <div className="space-y-6 relative z-10">
+                    <div className="flex items-center gap-1 text-brand-orange">
+                      {[1,2,3,4,5].map(i => <Star key={i} size={16} className="fill-brand-orange" />)}
+                      <span className="text-xs font-black text-white/40 mr-3 uppercase">(150+ مراجعة إيجابية)</span>
+                    </div>
+                    <h1 className="text-6xl md:text-8xl font-black italic tracking-tighter leading-tight text-white">
+                      SOFEX <br/>
+                      <span className="text-brand-blue">ULTRA PRO</span>
+                    </h1>
+                    <p className="text-stone-400 font-medium italic text-2xl leading-relaxed">الجيل الجديد من قارورات إعادة التلوين الاحترافية.</p>
+                  </div>
+
+                  <div className="space-y-4 relative z-10">
+                    <div className="flex items-baseline gap-6">
+                      <span className="text-8xl font-black text-brand-red tracking-tighter italic">{currentPrice} <span className="text-3xl">دج</span></span>
+                      <span className="text-2xl font-bold text-stone-600 line-through">{(priceData[1] * quantity)} دج</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-12 relative z-10">
+                    <div className="space-y-6">
+                      <h3 className="text-xs font-black text-stone-500 uppercase tracking-widest italic pr-4">1. الحصّة المطلوبة:</h3>
+                      <div className="grid grid-cols-2 gap-4">
+                        {(['1kg', '2kg'] as const).map(s => (
+                          <button 
+                            key={s}
+                            onClick={() => setSelectedSize(s)}
+                            className={`option-btn ${selectedSize === s ? 'option-btn-active' : 'option-btn-inactive'}`}
+                          >
+                            <span className="text-3xl font-black italic">{s === '1kg' ? '1كـغ' : '2كـغ'}</span>
+                            <span className="text-[10px] font-black uppercase opacity-60 mt-1">{s === '1kg' ? 'قياسي' : 'توفير'}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="space-y-6">
+                      <h3 className="text-xs font-black text-stone-500 uppercase tracking-widest italic pr-4">2. عدد القارورات:</h3>
+                      <div className="flex items-center gap-6 bg-white/5 p-3 rounded-3xl w-fit border border-white/5">
+                        <button onClick={() => setQuantity(q => q + 1)} className="w-14 h-14 bg-brand-blue text-white rounded-2xl shadow-xl flex items-center justify-center text-4xl font-black">+</button>
+                        <span className="text-5xl font-black italic w-12 text-center text-white">{quantity}</span>
+                        <button onClick={() => setQuantity(q => Math.max(1, q - 1))} className="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-4xl font-black hover:bg-white/20">-</button>
+                      </div>
+                    </div>
+
+                    <button 
+                      onClick={() => setView('checkout')}
+                      className="btn-primary group"
+                    >
+                      إتمام الطلب الآن <ArrowLeft className="group-hover:-translate-x-3 transition-transform" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Mega Features */}
+              <section className="mt-40 grid md:grid-cols-3 gap-10">
+                <motion.div whileHover={{ y: -10 }} className="card-glass p-12 space-y-6 border-b-8 border-b-brand-blue">
+                  <div className="w-20 h-20 bg-brand-blue/20 text-brand-blue rounded-3xl flex items-center justify-center"><Truck size={40} /></div>
+                  <h3 className="text-3xl font-black italic">شحن لـ 58 ولاية</h3>
+                  <p className="text-stone-500 font-bold italic text-xl leading-relaxed">نصلك أينما كنت في الجزائر، سرعة وأمان في التسليم.</p>
+                </motion.div>
+                <motion.div whileHover={{ y: -10 }} className="card-glass p-12 space-y-6 border-b-8 border-b-brand-red">
+                  <div className="w-20 h-20 bg-brand-red/20 text-brand-red rounded-3xl flex items-center justify-center"><ShieldCheck size={40} /></div>
+                  <h3 className="text-3xl font-black italic">ضمان الجودة</h3>
+                  <p className="text-stone-500 font-bold italic text-xl leading-relaxed">منتجاتنا مختبرة وتضمن لك أفضل نتائج تلوين احترافية.</p>
+                </motion.div>
+                <motion.div whileHover={{ y: -10 }} className="card-glass p-12 space-y-6 border-b-8 border-b-brand-green">
+                  <div className="w-20 h-20 bg-brand-green/20 text-brand-green rounded-3xl flex items-center justify-center"><ShoppingCart size={40} /></div>
+                  <h3 className="text-3xl font-black italic">دفع عند الاستلام</h3>
+                  <p className="text-stone-500 font-bold italic text-xl leading-relaxed">لا حاجة للدفع المسبق، ادفع فقط عندما تلمس منتجك.</p>
+                </motion.div>
+              </section>
+
+              {/* Delivery Table Integration */}
+              <section className="mt-40 mb-20 bg-black/40 p-10 md:p-20 rounded-[80px] border border-white/5 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-full bg-brand-red/5 blur-[100px] -z-10" />
+                <div className="max-w-4xl mx-auto space-y-8">
+                  <h2 className="text-4xl md:text-6xl font-black italic text-center text-white tracking-tighter">أسعار الشحن المعتمدة 🚚</h2>
+                  <div className="bg-white/5 border border-white/10 rounded-[40px] overflow-hidden">
+                    <table className="w-full text-right">
+                      <thead className="bg-white/5">
+                        <tr>
+                          <th className="p-8 text-xs font-black uppercase tracking-widest text-stone-500">الولاية / المنطقة</th>
+                          <th className="p-8 text-xs font-black uppercase tracking-widest text-stone-500 text-left">التوصيل (دج)</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-white/5">
+                        {DELIVERY_PRICES.map((d, i) => (
+                          <tr key={i} className="hover:bg-white/10 transition-colors">
+                            <td className="p-8 text-2xl font-black italic">{d.region}</td>
+                            <td className="p-8 text-2xl font-black italic text-brand-red text-left">{d.home} دج</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </section>
+            </main>
+          </motion.div>
+        ) : (
+          <motion.div 
+            key="checkout"
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0 }}
+            className="max-w-3xl mx-auto px-6 py-20"
+          >
+            <button 
+              onClick={() => setView('product')}
+              className="flex items-center gap-3 text-stone-500 hover:text-white transition-colors mb-12 font-black italic text-xl"
+            >
+              <ChevronRight /> العودة للمنتج
+            </button>
+
+            <div className="card-glass p-10 md:p-16 space-y-16 border-t-8 border-t-brand-blue relative overflow-hidden">
+               <div className="absolute top-0 right-0 w-64 h-64 bg-brand-blue/10 blur-[100px] -z-10" />
+               <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-red/10 blur-[100px] -z-10" />
+               
+               {formStatus === 'success' ? (
+                  <div className="text-center space-y-10 py-10">
+                     <div className="w-32 h-32 bg-brand-green rounded-full flex items-center justify-center mx-auto shadow-[0_0_50px_rgba(0,204,102,0.5)]">
+                        <CheckCircle2 size={60} className="text-white" />
+                     </div>
+                     <div className="space-y-4">
+                        <h2 className="text-5xl font-black italic">طلبك قيد المعالجة!</h2>
+                        <p className="text-xl text-stone-400 font-bold italic">شكراً لثقتك بـ سوفيكس. سنتحدث إليك قريباً جداً.</p>
+                     </div>
+                     <button onClick={() => setView('product')} className="text-brand-blue font-black underline text-xl italic hover:text-white">العودة للرئيسية</button>
+                  </div>
+               ) : (
+                  <form onSubmit={handleSendTelegram} className="space-y-12">
+                    <div className="space-y-4">
+                      <h2 className="text-5xl font-black italic tracking-tighter">أدخل معلوماتك الشخصية ✍️</h2>
+                      <p className="text-stone-500 font-bold italic text-lg">يرجى كتابة الاسم والعنوان بدقة لضمان سرعة التوصيل.</p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-8">
+                       <div className="space-y-3">
+                          <label className="text-[10px] font-black uppercase text-stone-500 pr-4">الاسم الكامل</label>
+                          <input name="name" required className="form-input" placeholder="اسمك الكريم..." />
+                       </div>
+                       <div className="space-y-3">
+                          <label className="text-[10px] font-black uppercase text-stone-500 pr-4">رقم الهاتف</label>
+                          <input name="phone" required type="tel" className="form-input" placeholder="06 / 07 / 05 ..." />
+                       </div>
+                    </div>
+
+                    <div className="space-y-3">
+                       <label className="text-[10px] font-black uppercase text-stone-500 pr-4">العنوان (البلدية والولاية)</label>
+                       <input name="address" required className="form-input" placeholder="العنوان بالتفصيل..." />
+                    </div>
+
+                    <div className="bg-black/60 p-10 rounded-[40px] border border-white/5 flex flex-col md:flex-row items-center justify-between shadow-2xl relative overflow-hidden gap-8">
+                       <div className="absolute top-0 left-0 w-full h-full bg-brand-blue/5 blur-3xl pointer-events-none" />
+                       <div className="relative z-10 w-full md:w-auto">
+                          <span className="text-[10px] font-black uppercase text-stone-500 block mb-2 italic">المجموع النهائي للدفع</span>
+                          <div className="flex items-baseline gap-3">
+                             <span className="text-7xl font-black italic tracking-tighter text-brand-red leading-none">{currentPrice}</span>
+                             <span className="text-2xl font-black italic text-brand-blue">دج</span>
+                          </div>
+                       </div>
+                       <button 
+                         disabled={isSubmitting}
+                         type="submit"
+                         className="btn-primary !w-full md:!w-auto !px-12 relative z-10"
+                       >
+                          {isSubmitting ? 'جاري الإرسال...' : 'ثبّت الطلب الآن ⚡️'}
+                       </button>
+                    </div>
+                  </form>
+               )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <footer className="mt-40 pt-40 pb-20 border-t border-white/5 relative overflow-hidden">
+        <div className="absolute bottom-0 left-0 w-full h-1/2 bg-brand-blue/5 blur-[120px] -z-10" />
+        <div className="max-w-7xl mx-auto px-6 md:px-12 grid lg:grid-cols-12 gap-20">
+          <div className="lg:col-span-5 space-y-10">
+            <div className="flex items-center gap-6">
+              <div className="w-20 h-20 rounded-3xl bg-white p-1 shadow-[0_0_50px_rgba(255,255,255,0.1)]">
+                <img src="https://i.postimg.cc/Y0hMc7F7/photo-2025-10-17-20-22-46.jpg" className="w-full h-full rounded-2xl object-contain" alt="Footer Logo" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-5xl font-black italic tracking-tighter text-white">SOFEX</span>
+                <span className="text-brand-blue text-[10px] font-black uppercase tracking-[0.3em]">Elite Algeria Distribution</span>
+              </div>
+            </div>
+            <p className="text-3xl font-black italic text-stone-500 leading-tight">شريكك الأول في عالم التلوين الاحترافي منذ عام 2020.</p>
+            <div className="flex gap-4">
+              <a href={FACEBOOK_URL} target="_blank" rel="noreferrer" className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center hover:bg-blue-600 transition-all shadow-xl group border border-white/5">
+                <Facebook size={24} className="group-hover:scale-110 transition-transform" />
+              </a>
+              <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center hover:bg-pink-600 transition-all shadow-xl group border border-white/5">
+                <Instagram size={24} className="group-hover:scale-110 transition-transform" />
+              </a>
+            </div>
+          </div>
+          <div className="lg:col-span-7 grid md:grid-cols-2 gap-12">
+            <div className="space-y-8">
+               <h4 className="text-brand-blue font-black uppercase tracking-widest text-xs pr-4 border-r-4 border-brand-blue">روابط مهمة</h4>
+               <ul className="space-y-4 text-2xl font-black italic text-stone-500">
+                 <li><button onClick={() => setView('product')} className="hover:text-white transition-colors">الرئيسية</button></li>
+                 <li><button onClick={() => setView('checkout')} className="hover:text-white transition-colors">أطلب الآن</button></li>
+                 <li><button onClick={() => setShowPrivacy(true)} className="hover:text-white transition-colors">الخصوصية</button></li>
+               </ul>
+            </div>
+            <div className="space-y-8">
+               <h4 className="text-brand-red font-black uppercase tracking-widest text-xs pr-4 border-r-4 border-brand-red">تواصل معنا</h4>
+               <div className="space-y-4">
+                  <p className="text-4xl font-black italic text-white leading-none">0655110977</p>
+                  <p className="text-xl font-bold italic text-stone-500">الجزائر العاصمة، حي الموز.</p>
+                  <p className="text-sm font-bold text-stone-700 uppercase tracking-widest">مفتوح الآن • خدمة 24/7</p>
+               </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-6 md:px-12 mt-32 pt-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-10">
+           <div className="flex items-center gap-10">
+              <span className="text-[10px] font-black uppercase tracking-[0.5em] text-stone-800 italic leading-none">SOFEX STORE OFFICIAL 2026</span>
+              <span className="hidden md:block w-20 h-px bg-white/5" />
+              <span className="text-[10px] font-black uppercase tracking-[0.5em] text-stone-800 italic leading-none">MADE IN ALGERIA 🇩🇿</span>
+           </div>
+        </div>
+      </footer>
+
+      {/* Privacy Policy Overlay */}
+      <AnimatePresence>
+         {showPrivacy && (
+            <motion.div 
+               initial={{ opacity: 0 }}
+               animate={{ opacity: 1 }}
+               exit={{ opacity: 0 }}
+               className="fixed inset-0 z-[2000] bg-black/95 backdrop-blur-3xl p-6 flex items-center justify-center"
+            >
+               <motion.div 
+                  initial={{ y: 50, scale: 0.9 }}
+                  animate={{ y: 0, scale: 1 }}
+                  exit={{ y: 50, scale: 0.9 }}
+                  className="bg-zinc-900 border border-white/10 rounded-[60px] p-10 md:p-16 max-w-3xl w-full max-h-[85vh] overflow-y-auto space-y-12 text-right relative shadow-[0_0_100px_rgba(0,0,0,1)]"
+               >
+                  <div className="flex justify-between items-center border-b border-white/10 pb-8">
+                     <h2 className="text-5xl font-black italic tracking-tighter text-white">سياسة الخصوصية</h2>
+                     <button onClick={() => setShowPrivacy(false)} className="w-16 h-16 rounded-[24px] bg-white/5 text-white flex items-center justify-center text-3xl font-black hover:rotate-90 transition-transform">×</button>
+                  </div>
+                  <div className="space-y-8 text-stone-400 font-bold leading-relaxed italic text-xl">
+                     <p>أهلاً بك في متجر سوفيكس. نحن نلتزم بأعلى معايير حماية بياناتك الشخصية:</p>
+                     <ul className="list-disc pr-10 space-y-4">
+                        <li>نحن نجمع فقط المعلومات الضرورية لإتمام عملية الشحن (الاسم، الهاتف، والعنوان).</li>
+                        <li>لا يتم تخزين معلوماتك لأغراض تسويقية غير مرغوب فيها.</li>
+                        <li>يتم مشاركة رقم هاتفك وعنوانك فقط مع مندوب التوصيل المعتمد لضمان وصول المنتج إليك.</li>
+                        <li>نحن نستخدم حماية مشفرة لنموذج الطلب لضمان عدم اعتراض البيانات من أي طرف ثالث.</li>
+                        <li>نحن نتبع سياسة "الدفع عند الاستلام" لحماية زبائننا من أي مخاطر مالية إلكترونية.</li>
+                     </ul>
+                  </div>
+                  <button onClick={() => setShowPrivacy(false)} className="w-full bg-brand-blue text-white py-6 rounded-[32px] font-black text-2xl shadow-3xl shadow-brand-blue/30 hover:scale-105 transition-transform">أوافق على الشروط</button>
+               </motion.div>
+            </motion.div>
+         )}
+      </AnimatePresence>
+
+      {/* Super Floating Sticky Button for Mobile */}
+      <AnimatePresence>
+         {view === 'product' && (
+           <div className="md:hidden fixed bottom-8 left-8 right-8 z-[1000]">
+              <motion.button 
+                initial={{ y: 100 }}
+                animate={{ y: 0 }}
+                exit={{ y: 100 }}
+                onClick={() => setView('checkout')}
+                className="w-full bg-brand-red text-white p-6 rounded-[32px] shadow-[0_30px_60px_-10px_rgba(255,0,0,0.5)] border-4 border-white/20 flex items-center justify-between group overflow-hidden relative"
+              >
+                <div className="absolute inset-0 bg-white/10 animate-pulse pointer-events-none" />
+                <div className="text-right relative z-10 pr-2">
+                   <span className="text-[10px] block font-black uppercase tracking-widest opacity-60 mb-1 italic">السعر الإجمالي</span>
+                   <span className="text-4xl font-black italic tracking-tighter">{currentPrice} دج</span>
+                </div>
+                <div className="bg-white text-brand-red px-10 py-3 rounded-2xl text-base font-black shadow-2xl relative z-10 italic flex items-center gap-3">
+                   أطلب الآن <ShoppingCart size={20} />
+                </div>
+              </motion.button>
+           </div>
+         )}
+      </AnimatePresence>
+
+    </div>
+  );
+}
