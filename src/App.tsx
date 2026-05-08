@@ -21,11 +21,65 @@ import {
   Music
 } from 'lucide-react';
 
-const DELIVERY_PRICES = [
-  { region: "الجزائر العاصمة", home: 400 },
-  { region: "البليدة / بومرداس / تيبازة", home: 600 },
-  { region: "الولايات الكبرى (سطيف، قسنطينة، وهران...)", home: 600 },
-  { region: "الولايات الداخلية والجنوب", home: 1200 },
+const WILAYAS = [
+  { name: "16 - الجزائر العاصمة", fee: 400 },
+  { name: "09 - البليدة", fee: 600 },
+  { name: "35 - بومرداس", fee: 600 },
+  { name: "42 - تيبازة", fee: 600 },
+  { name: "31 - وهران", fee: 600 },
+  { name: "25 - قسنطينة", fee: 600 },
+  { name: "19 - سطيف", fee: 600 },
+  { name: "23 - عنابة", fee: 600 },
+  { name: "06 - بجاية", fee: 600 },
+  { name: "15 - تيزي وزو", fee: 600 },
+  { name: "21 - سكيكدة", fee: 600 },
+  { name: "22 - سيدي بلعباس", fee: 600 },
+  { name: "27 - مستغانم", fee: 600 },
+  { name: "29 - معسكر", fee: 600 },
+  { name: "46 - عين تموشنت", fee: 600 },
+  { name: "01 - أدرار", fee: 1200 },
+  { name: "02 - الشلف", fee: 1200 },
+  { name: "03 - الأغواط", fee: 1200 },
+  { name: "04 - أم البواقي", fee: 1200 },
+  { name: "05 - باتنة", fee: 1200 },
+  { name: "07 - بسكرة", fee: 1200 },
+  { name: "08 - بشار", fee: 1200 },
+  { name: "10 - البويرة", fee: 1200 },
+  { name: "11 - تمنراست", fee: 1200 },
+  { name: "12 - تبسة", fee: 1200 },
+  { name: "13 - تلمسان", fee: 1200 },
+  { name: "14 - تيارت", fee: 1200 },
+  { name: "17 - الجلفة", fee: 1200 },
+  { name: "18 - جيجل", fee: 1200 },
+  { name: "20 - سعيدة", fee: 1200 },
+  { name: "24 - قالمة", fee: 1200 },
+  { name: "26 - المدية", fee: 1200 },
+  { name: "28 - المسيلة", fee: 1200 },
+  { name: "30 - ورقلة", fee: 1200 },
+  { name: "32 - البيض", fee: 1200 },
+  { name: "33 - إليزي", fee: 1200 },
+  { name: "34 - برج بوعريريج", fee: 1200 },
+  { name: "36 - الطارف", fee: 1200 },
+  { name: "37 - تندوف", fee: 1200 },
+  { name: "38 - تيسمسيلت", fee: 1200 },
+  { name: "39 - الوادي", fee: 1200 },
+  { name: "40 - خنشلة", fee: 1200 },
+  { name: "41 - سوق أهراس", fee: 1200 },
+  { name: "43 - ميلة", fee: 1200 },
+  { name: "44 - عين الدفلى", fee: 1200 },
+  { name: "45 - النعامة", fee: 1200 },
+  { name: "47 - غرداية", fee: 1200 },
+  { name: "48 - غليزان", fee: 1200 },
+  { name: "49 - المغير", fee: 1200 },
+  { name: "50 - المنيعة", fee: 1200 },
+  { name: "51 - أولاد جلال", fee: 1200 },
+  { name: "52 - برج باجي مختار", fee: 1200 },
+  { name: "53 - بني عباس", fee: 1200 },
+  { name: "54 - تيميمون", fee: 1200 },
+  { name: "55 - تقرت", fee: 1200 },
+  { name: "56 - جانت", fee: 1200 },
+  { name: "57 - إن صالح", fee: 1200 },
+  { name: "58 - إن قزام", fee: 1200 }
 ];
 
 const TG_TOKEN = "8249247789:AAE9saD1Bjz5L9Zqg_jZae9I5fYet0DzxGY";
@@ -35,6 +89,8 @@ const FACEBOOK_URL = "https://www.facebook.com/share/1B3j19TWQ5/";
 const TIKTOK_URL = "https://www.tiktok.com/@sofex0102?_r=1&_t=ZS-963PpA7URTZ";
 
 export default function App() {
+  const [selectedColor, setSelectedColor] = useState<'الأزرق' | 'الأحمر' | 'الأخضر' | 'الأصفر'>('الأزرق');
+  const [selectedWilayaIndex, setSelectedWilayaIndex] = useState<number>(0);
   const [view, setView] = useState<'product' | 'checkout'>('product');
   const [selectedSize, setSelectedSize] = useState<'1kg' | '2kg'>('1kg');
   const [quantity, setQuantity] = useState<number>(1);
@@ -44,12 +100,14 @@ export default function App() {
   const [showPrivacy, setShowPrivacy] = useState(false);
 
   const productImages = [
-    "https://i.postimg.cc/wvXShbFX/photo-2026-05-03-15-40-05.jpg",
+    "https://i.postimg.cc/3JJHdZjb/photo-2026-05-08-17-57-56.jpg",
+    "https://i.postimg.cc/jjkDF5xJ/photo-2026-05-08-17-54-28.jpg",
     "https://i.postimg.cc/NMSp2G7c/photo-2026-05-03-13-34-05.jpg",
     "https://i.postimg.cc/Gmq8Qrvq/photo-2026-05-02-13-32-02.jpg",
-    "https://i.postimg.cc/Qd09bscS/photo-2026-05-02-13-32-08.jpg",
-    "https://i.postimg.cc/KjPQ3FTt/cas-generated-1766504769277.png"
+    "https://i.postimg.cc/Qd09bscS/photo-2026-05-02-13-32-08.jpg"
   ];
+
+  const deliveryPrice = useMemo(() => WILAYAS[selectedWilayaIndex].fee, [selectedWilayaIndex]);
 
   const priceData = useMemo(() => {
     return selectedSize === '1kg' 
@@ -64,6 +122,8 @@ export default function App() {
     return quantity * priceData.bulk;
   }, [quantity, priceData]);
 
+  const totalPrice = useMemo(() => currentPrice + deliveryPrice, [currentPrice, deliveryPrice]);
+
   const handleSendTelegram = async (e: React.FormEvent) => {
     e.preventDefault();
     const currentForm = e.target as HTMLFormElement;
@@ -75,12 +135,18 @@ export default function App() {
 ━━━━━━━━━━━━━━
 👤 *الزبون:* ${formDataObj.get('name')}
 📞 *الهاتف:* ${formDataObj.get('phone')}
+📍 *الولاية:* ${WILAYAS[selectedWilayaIndex].name}
 📍 *العنوان:* ${formDataObj.get('address')}
 ━━━━━━━━━━━━━━
 🛍️ *تفاصيل الطلب:*
-- المنتج: قارورة سوفيكس (${selectedSize})
+- المنتج: قارورة سوفيكس الأفراح (${selectedSize})
+- الهدية: قارورة الثلج مجاناً 🎁
+- اللون: ${selectedColor}
 - الكمية: ${quantity} حبة
-💰 *المجموع:* ${currentPrice} دج
+━━━━━━━━━━━━━━
+💰 *سعر المنتج:* ${currentPrice} دج
+🚚 *سعر التوصيل:* ${deliveryPrice} دج (قابل للتخفيض)
+💵 *المجموع الكلي:* ${totalPrice} دج
 ━━━━━━━━━━━━━━
 ✅ *يرجى تأكيد الطلب فوراً.*
     `.trim();
@@ -186,9 +252,12 @@ export default function App() {
                     </div>
                     <h1 className="text-6xl md:text-8xl font-black italic tracking-tighter leading-tight text-white">
                       SOFEX <br/>
-                      <span className="text-brand-blue">ULTRA PRO</span>
+                      <span className="text-brand-blue uppercase">JOY & ICE</span>
                     </h1>
-                    <p className="text-stone-400 font-medium italic text-2xl leading-relaxed">الجيل الجديد من قارورات إعادة التلوين الاحترافية (متوفر بوزن 1 كغ و 2 كغ فقط).</p>
+                    <p className="text-stone-400 font-medium italic text-2xl leading-relaxed">
+                      الجيل الجديد من قارورات الأفراح الاحترافية.<br/>
+                      <span className="text-brand-green font-black">🎁 هديّة خاصّة:</span> قارورة الثلج مجاناً عند شراء قارورة الأفراح!
+                    </p>
                   </div>
 
                   <div className="space-y-4 relative z-10">
@@ -216,7 +285,22 @@ export default function App() {
                     </div>
 
                     <div className="space-y-6">
-                      <h3 className="text-xs font-black text-stone-500 uppercase tracking-widest italic pr-4">2. كم عدد القارورات التي تريدها؟</h3>
+                      <h3 className="text-xs font-black text-stone-500 uppercase tracking-widest italic pr-4">2. اختر اللون المتوفر:</h3>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        {(['الأزرق', 'الأحمر', 'الأخضر', 'الأصفر'] as const).map(color => (
+                          <button 
+                            key={color}
+                            onClick={() => setSelectedColor(color)}
+                            className={`px-4 py-3 rounded-2xl border-2 font-black italic text-sm transition-all ${selectedColor === color ? 'border-brand-blue bg-brand-blue/10 text-white shadow-[0_0_15px_rgba(0,102,255,0.3)]' : 'border-white/5 bg-white/5 text-stone-500 hover:bg-white/10'}`}
+                          >
+                            {color}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="space-y-6">
+                      <h3 className="text-xs font-black text-stone-500 uppercase tracking-widest italic pr-4">3. كم عدد القارورات التي تريدها؟</h3>
                       <div className="flex items-center gap-6 bg-white/5 p-3 rounded-3xl w-fit border border-white/5">
                         <button onClick={() => setQuantity(q => q + 1)} className="w-14 h-14 bg-brand-blue text-white rounded-2xl shadow-xl flex items-center justify-center text-4xl font-black">+</button>
                         <span className="text-5xl font-black italic w-12 text-center text-white">{quantity}</span>
@@ -268,12 +352,22 @@ export default function App() {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-white/5">
-                        {DELIVERY_PRICES.map((d, i) => (
-                          <tr key={i} className="hover:bg-white/10 transition-colors">
-                            <td className="p-8 text-2xl font-black italic">{d.region}</td>
-                            <td className="p-8 text-2xl font-black italic text-brand-red text-left">{d.home} دج</td>
-                          </tr>
-                        ))}
+                        <tr className="hover:bg-white/10 transition-colors">
+                          <td className="p-8 text-2xl font-black italic">الجزائر العاصمة</td>
+                          <td className="p-8 text-2xl font-black italic text-brand-red text-left">400 دج</td>
+                        </tr>
+                        <tr className="hover:bg-white/10 transition-colors">
+                          <td className="p-8 text-2xl font-black italic">البليدة / بومرداس / تيبازة</td>
+                          <td className="p-8 text-2xl font-black italic text-brand-red text-left">600 دج</td>
+                        </tr>
+                        <tr className="hover:bg-white/10 transition-colors">
+                          <td className="p-8 text-2xl font-black italic">الولايات الكبرى (سطيف، قسنطينة، وهران...)</td>
+                          <td className="p-8 text-2xl font-black italic text-brand-red text-left">600 دج</td>
+                        </tr>
+                        <tr className="hover:bg-white/10 transition-colors">
+                          <td className="p-8 text-2xl font-black italic">الولايات الداخلية والجنوب</td>
+                          <td className="p-8 text-2xl font-black italic text-brand-red text-left">1200 دج</td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
@@ -329,27 +423,58 @@ export default function App() {
                        </div>
                     </div>
 
-                    <div className="space-y-3">
-                       <label className="text-[10px] font-black uppercase text-stone-500 pr-4">العنوان (البلدية والولاية)</label>
-                       <input name="address" required className="form-input" placeholder="العنوان بالتفصيل..." />
+                    <div className="grid md:grid-cols-2 gap-8">
+                      <div className="space-y-3">
+                        <label className="text-[10px] font-black uppercase text-stone-500 pr-4 italic">اختر الولاية</label>
+                        <select 
+                          value={selectedWilayaIndex} 
+                          onChange={(e) => setSelectedWilayaIndex(Number(e.target.value))}
+                          className="form-input appearance-none bg-zinc-900 focus:bg-[#1a1a1a]"
+                        >
+                          {WILAYAS.map((w, i) => (
+                            <option key={i} value={i}>{w.name}</option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="space-y-3">
+                        <label className="text-[10px] font-black uppercase text-stone-500 pr-4 italic">العنوان الكامل (البلدية والنهج)</label>
+                        <input name="address" required className="form-input" placeholder="اسم البلدية والشارع ورقم المنزل..." />
+                      </div>
                     </div>
 
-                    <div className="bg-black/60 p-10 rounded-[40px] border border-white/5 flex flex-col md:flex-row items-center justify-between shadow-2xl relative overflow-hidden gap-8">
+                    <div className="bg-black/60 p-8 md:p-12 rounded-[40px] border border-white/5 space-y-8 shadow-2xl relative overflow-hidden">
                        <div className="absolute top-0 left-0 w-full h-full bg-brand-blue/5 blur-3xl pointer-events-none" />
-                       <div className="relative z-10 w-full md:w-auto">
-                          <span className="text-[10px] font-black uppercase text-stone-500 block mb-2 italic">المجموع النهائي للدفع</span>
-                          <div className="flex items-baseline gap-3">
-                             <span className="text-7xl font-black italic tracking-tighter text-brand-red leading-none">{currentPrice}</span>
-                             <span className="text-2xl font-black italic text-brand-blue">دج</span>
+                       
+                       <div className="grid grid-cols-2 gap-4 relative z-10 border-b border-white/5 pb-8">
+                          <div className="space-y-1">
+                             <span className="text-[10px] font-black uppercase text-stone-600 italic">سعر المنتج ({quantity} قطعة)</span>
+                             <p className="text-2xl font-black italic text-white">{currentPrice} دج</p>
+                          </div>
+                          <div className="space-y-1 text-left">
+                             <span className="text-[10px] font-black uppercase text-stone-600 italic">سعر التوصيل</span>
+                             <p className="text-2xl font-black italic text-brand-blue">{deliveryPrice} دج</p>
+                             <p className="text-[9px] font-black text-brand-green italic mt-1 animate-pulse">
+                                * سعر التوصيل قابل للتخفيض بعد الطلب
+                             </p>
                           </div>
                        </div>
-                       <button 
-                         disabled={isSubmitting}
-                         type="submit"
-                         className="btn-primary !w-full md:!w-auto !px-12 relative z-10"
-                       >
-                          {isSubmitting ? 'جاري الإرسال...' : 'ثبّت الطلب الآن ⚡️'}
-                       </button>
+
+                       <div className="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
+                         <div className="w-full md:w-auto">
+                            <span className="text-[10px] font-black uppercase text-stone-500 block mb-2 italic">المجموع الكلي المستحق</span>
+                            <div className="flex items-baseline gap-3">
+                               <span className="text-7xl font-black italic tracking-tighter text-brand-red leading-none">{totalPrice}</span>
+                               <span className="text-2xl font-black italic text-brand-blue">دج</span>
+                            </div>
+                         </div>
+                         <button 
+                           disabled={isSubmitting}
+                           type="submit"
+                           className="btn-primary !w-full md:!w-auto !px-12"
+                         >
+                            {isSubmitting ? 'جاري الإرسال...' : 'تأكيد الطلب نهائياً ⚡️'}
+                         </button>
+                       </div>
                     </div>
                   </form>
                )}
@@ -461,7 +586,7 @@ export default function App() {
               >
                 <div className="absolute inset-0 bg-white/10 animate-pulse pointer-events-none" />
                 <div className="text-right relative z-10 pr-2">
-                   <span className="text-[10px] block font-black uppercase tracking-widest opacity-60 mb-1 italic">السعر الإجمالي</span>
+                   <span className="text-[10px] block font-black uppercase tracking-widest opacity-60 mb-1 italic">سعر المنتج</span>
                    <span className="text-4xl font-black italic tracking-tighter">{currentPrice} دج</span>
                 </div>
                 <div className="bg-white text-brand-red px-10 py-3 rounded-2xl text-base font-black shadow-2xl relative z-10 italic flex items-center gap-3">
