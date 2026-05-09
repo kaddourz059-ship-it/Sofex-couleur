@@ -22,64 +22,64 @@ import {
 } from 'lucide-react';
 
 const WILAYAS = [
-  { name: "16 - الجزائر العاصمة", fee: 400 },
-  { name: "09 - البليدة", fee: 600 },
-  { name: "35 - بومرداس", fee: 600 },
-  { name: "42 - تيبازة", fee: 600 },
-  { name: "31 - وهران", fee: 600 },
-  { name: "25 - قسنطينة", fee: 600 },
-  { name: "19 - سطيف", fee: 600 },
-  { name: "23 - عنابة", fee: 600 },
-  { name: "06 - بجاية", fee: 600 },
-  { name: "15 - تيزي وزو", fee: 600 },
-  { name: "21 - سكيكدة", fee: 600 },
-  { name: "22 - سيدي بلعباس", fee: 600 },
-  { name: "27 - مستغانم", fee: 600 },
-  { name: "29 - معسكر", fee: 600 },
-  { name: "46 - عين تموشنت", fee: 600 },
-  { name: "01 - أدرار", fee: 1200 },
-  { name: "02 - الشلف", fee: 1200 },
-  { name: "03 - الأغواط", fee: 1200 },
-  { name: "04 - أم البواقي", fee: 1200 },
-  { name: "05 - باتنة", fee: 1200 },
-  { name: "07 - بسكرة", fee: 1200 },
-  { name: "08 - بشار", fee: 1200 },
-  { name: "10 - البويرة", fee: 1200 },
-  { name: "11 - تمنراست", fee: 1200 },
-  { name: "12 - تبسة", fee: 1200 },
-  { name: "13 - تلمسان", fee: 1200 },
-  { name: "14 - تيارت", fee: 1200 },
-  { name: "17 - الجلفة", fee: 1200 },
-  { name: "18 - جيجل", fee: 1200 },
-  { name: "20 - سعيدة", fee: 1200 },
-  { name: "24 - قالمة", fee: 1200 },
-  { name: "26 - المدية", fee: 1200 },
-  { name: "28 - المسيلة", fee: 1200 },
-  { name: "30 - ورقلة", fee: 1200 },
-  { name: "32 - البيض", fee: 1200 },
-  { name: "33 - إليزي", fee: 1200 },
-  { name: "34 - برج بوعريريج", fee: 1200 },
-  { name: "36 - الطارف", fee: 1200 },
-  { name: "37 - تندوف", fee: 1200 },
-  { name: "38 - تيسمسيلت", fee: 1200 },
-  { name: "39 - الوادي", fee: 1200 },
-  { name: "40 - خنشلة", fee: 1200 },
-  { name: "41 - سوق أهراس", fee: 1200 },
-  { name: "43 - ميلة", fee: 1200 },
-  { name: "44 - عين الدفلى", fee: 1200 },
-  { name: "45 - النعامة", fee: 1200 },
-  { name: "47 - غرداية", fee: 1200 },
-  { name: "48 - غليزان", fee: 1200 },
-  { name: "49 - المغير", fee: 1200 },
-  { name: "50 - المنيعة", fee: 1200 },
-  { name: "51 - أولاد جلال", fee: 1200 },
-  { name: "52 - برج باجي مختار", fee: 1200 },
-  { name: "53 - بني عباس", fee: 1200 },
-  { name: "54 - تيميمون", fee: 1200 },
-  { name: "55 - تقرت", fee: 1200 },
-  { name: "56 - جانت", fee: 1200 },
-  { name: "57 - إن صالح", fee: 1200 },
-  { name: "58 - إن قزام", fee: 1200 }
+  { name: "16 - الجزائر العاصمة", desk: 400, home: 400 },
+  { name: "09 - البليدة", desk: 500, home: 600 },
+  { name: "35 - بومرداس", desk: 500, home: 600 },
+  { name: "42 - تيبازة", desk: 500, home: 600 },
+  { name: "31 - وهران", desk: 600, home: 800 },
+  { name: "13 - تلمسان", desk: 600, home: 800 },
+  { name: "46 - عين تموشنت", desk: 600, home: 800 },
+  { name: "44 - عين الدفلى", desk: 600, home: 800 },
+  { name: "14 - تيارت", desk: 600, home: 800 },
+  { name: "29 - معسكر", desk: 600, home: 800 },
+  { name: "22 - سيدي بلعباس", desk: 600, home: 800 },
+  { name: "27 - مستغانم", desk: 600, home: 800 },
+  { name: "48 - غليزان", desk: 600, home: 800 },
+  { name: "20 - سعيدة", desk: 600, home: 800 },
+  { name: "02 - الشلف", desk: 600, home: 800 },
+  { name: "23 - عنابة", desk: 600, home: 800 },
+  { name: "04 - أم البواقي", desk: 600, home: 800 },
+  { name: "24 - قالمة", desk: 600, home: 800 },
+  { name: "26 - المدية", desk: 600, home: 800 },
+  { name: "43 - ميلة", desk: 600, home: 800 },
+  { name: "38 - تيسمسيلت", desk: 600, home: 800 },
+  { name: "41 - سوق أهراس", desk: 600, home: 800 },
+  { name: "21 - سكيكدة", desk: 600, home: 800 },
+  { name: "15 - تيزي وزو", desk: 600, home: 800 },
+  { name: "19 - سطيف", desk: 600, home: 800 },
+  { name: "18 - جيجل", desk: 600, home: 800 },
+  { name: "40 - خنشلة", desk: 600, home: 800 },
+  { name: "05 - باتنة", desk: 600, home: 800 },
+  { name: "34 - برج بوعريريج", desk: 600, home: 800 },
+  { name: "36 - الطارف", desk: 600, home: 800 },
+  { name: "25 - قسنطينة", desk: 600, home: 800 },
+  { name: "28 - المسيلة", desk: 600, home: 800 },
+  { name: "06 - بجاية", desk: 600, home: 800 },
+  { name: "10 - البويرة", desk: 600, home: 800 },
+  { name: "07 - بسكرة", desk: 700, home: 900 },
+  { name: "17 - الجلفة", desk: 700, home: 900 },
+  { name: "12 - تبسة", desk: 700, home: 900 },
+  { name: "47 - غرداية", desk: 700, home: 900 },
+  { name: "30 - ورقلة", desk: 700, home: 900 },
+  { name: "03 - الأغواط", desk: 700, home: 900 },
+  { name: "45 - النعامة", desk: 700, home: 900 },
+  { name: "39 - الوادي", desk: 700, home: 900 },
+  { name: "49 - المغير", desk: 700, home: 900 },
+  { name: "50 - المنيعة", desk: 700, home: 900 },
+  { name: "51 - أولاد جلال", desk: 700, home: 900 },
+  { name: "55 - تقرت", desk: 700, home: 900 },
+  { name: "01 - أدرار", desk: 900, home: 1150 },
+  { name: "08 - بشار", desk: 900, home: 1150 },
+  { name: "32 - البيض", desk: 900, home: 1150 },
+  { name: "53 - بني عباس", desk: 900, home: 1150 },
+  { name: "54 - تيميمون", desk: 900, home: 1150 },
+  { name: "11 - تمنراست", desk: 1250, home: 1450 },
+  { name: "37 - تندوف", desk: 1250, home: 1450 },
+  { name: "33 - إليزي", desk: 1250, home: 1450 },
+  { name: "52 - برج باجي مختار", desk: 1250, home: 1450 },
+  { name: "56 - جانت", desk: 1250, home: 1450 },
+  { name: "57 - إن صالح", desk: 1250, home: 1450 },
+  { name: "58 - إن قزام", desk: 1250, home: 1450 }
 ];
 
 const TG_TOKEN = "8249247789:AAE9saD1Bjz5L9Zqg_jZae9I5fYet0DzxGY";
@@ -91,6 +91,7 @@ const TIKTOK_URL = "https://www.tiktok.com/@sofex0102?_r=1&_t=ZS-963PpA7URTZ";
 export default function App() {
   const [selectedColor, setSelectedColor] = useState<'الأزرق' | 'الأحمر' | 'الأخضر' | 'الأصفر'>('الأزرق');
   const [selectedWilayaIndex, setSelectedWilayaIndex] = useState<number>(0);
+  const [deliveryType, setDeliveryType] = useState<'desk' | 'home'>('home');
   const [view, setView] = useState<'product' | 'checkout'>('product');
   const [selectedSize, setSelectedSize] = useState<'1kg' | '2kg'>('1kg');
   const [quantity, setQuantity] = useState<number>(1);
@@ -107,7 +108,10 @@ export default function App() {
     "https://i.postimg.cc/Qd09bscS/photo-2026-05-02-13-32-08.jpg"
   ];
 
-  const deliveryPrice = useMemo(() => WILAYAS[selectedWilayaIndex].fee, [selectedWilayaIndex]);
+  const deliveryPrice = useMemo(() => {
+    const wilaya = WILAYAS[selectedWilayaIndex];
+    return deliveryType === 'desk' ? wilaya.desk : wilaya.home;
+  }, [selectedWilayaIndex, deliveryType]);
 
   const priceData = useMemo(() => {
     return selectedSize === '1kg' 
@@ -136,6 +140,7 @@ export default function App() {
 👤 *الزبون:* ${formDataObj.get('name')}
 📞 *الهاتف:* ${formDataObj.get('phone')}
 📍 *الولاية:* ${WILAYAS[selectedWilayaIndex].name}
+📍 *نوع التوصيل:* ${deliveryType === 'home' ? 'توصيل للمنزل 🏠' : 'استلام من المكتب 🏢'}
 📍 *العنوان:* ${formDataObj.get('address')}
 ━━━━━━━━━━━━━━
 🛍️ *تفاصيل الطلب:*
@@ -145,7 +150,7 @@ export default function App() {
 - الكمية: ${quantity} حبة
 ━━━━━━━━━━━━━━
 💰 *سعر المنتج:* ${currentPrice} دج
-🚚 *سعر التوصيل:* ${deliveryPrice} دج (قابل للتخفيض)
+🚚 *سعر التوصيل:* ${deliveryPrice} دج (${deliveryType === 'home' ? 'للمنزل' : 'للمكتب'})
 💵 *المجموع الكلي:* ${totalPrice} دج
 ━━━━━━━━━━━━━━
 ✅ *يرجى تأكيد الطلب فوراً.*
@@ -341,32 +346,47 @@ export default function App() {
               {/* Delivery Table Integration */}
               <section className="mt-40 mb-20 bg-black/40 p-10 md:p-20 rounded-[80px] border border-white/5 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-full bg-brand-red/5 blur-[100px] -z-10" />
-                <div className="max-w-4xl mx-auto space-y-8">
-                  <h2 className="text-4xl md:text-6xl font-black italic text-center text-white tracking-tighter">أسعار الشحن المعتمدة 🚚</h2>
-                  <div className="bg-white/5 border border-white/10 rounded-[40px] overflow-hidden">
-                    <table className="w-full text-right">
-                      <thead className="bg-white/5">
+                <div className="max-w-4xl mx-auto space-y-8 text-right">
+                  <h2 className="text-4xl md:text-5xl font-black italic text-center text-white tracking-tighter mb-4">أسعار التوصيل مع شركة ياليدين yalidine 🚚</h2>
+                  <div className="bg-white/5 border border-white/10 rounded-[40px] overflow-hidden overflow-x-auto">
+                    <table className="w-full text-right min-w-[500px]">
+                      <thead className="bg-white/10">
                         <tr>
-                          <th className="p-8 text-xs font-black uppercase tracking-widest text-stone-500">الولاية / المنطقة</th>
-                          <th className="p-8 text-xs font-black uppercase tracking-widest text-stone-500 text-left">التوصيل (دج)</th>
+                          <th className="p-6 text-xs font-black uppercase text-stone-500">الولاية / المنطقة</th>
+                          <th className="p-6 text-xs font-black uppercase text-stone-500 text-center">لمكتب الشركة (دج)</th>
+                          <th className="p-6 text-xs font-black uppercase text-stone-500 text-center">لباب المنزل (دج)</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-white/5">
-                        <tr className="hover:bg-white/10 transition-colors">
-                          <td className="p-8 text-2xl font-black italic">الجزائر العاصمة</td>
-                          <td className="p-8 text-2xl font-black italic text-brand-red text-left">400 دج</td>
+                      <tbody className="divide-y divide-white/5 text-white">
+                        <tr className="hover:bg-white/10">
+                          <td className="p-6 font-black italic text-xl">الجزائر العاصمة</td>
+                          <td className="p-6 font-black italic text-xl text-center text-brand-blue">400</td>
+                          <td className="p-6 font-black italic text-xl text-center text-brand-red">400</td>
                         </tr>
-                        <tr className="hover:bg-white/10 transition-colors">
-                          <td className="p-8 text-2xl font-black italic">البليدة / بومرداس / تيبازة</td>
-                          <td className="p-8 text-2xl font-black italic text-brand-red text-left">600 دج</td>
+                        <tr className="hover:bg-white/10">
+                          <td className="p-6 font-black italic text-xl">البليدة / بومرداس / تيبازة</td>
+                          <td className="p-6 font-black italic text-xl text-center text-brand-blue">500</td>
+                          <td className="p-6 font-black italic text-xl text-center text-brand-red">600</td>
                         </tr>
-                        <tr className="hover:bg-white/10 transition-colors">
-                          <td className="p-8 text-2xl font-black italic">الولايات الكبرى (سطيف، قسنطينة، وهران...)</td>
-                          <td className="p-8 text-2xl font-black italic text-brand-red text-left">600 دج</td>
+                        <tr className="hover:bg-white/10">
+                          <td className="p-6 font-black italic text-sm">وهران / تلمسان / عين تموشنت / عين الدفلى / تيارت / معسكر / بلعباس / مستغانم / غليزان / سعيدة / الشلف / عنابة / أم البواقي / قالمة / المدية / ميلة / تيسمسيلت / سوق اهراس / سكيكدة / تيزي وزو / سطيف / جيجل / خنشلة / باتنة / برج بوعريريج / الطارف / قسنطينة / مسيلة / بجاية / البويرة</td>
+                          <td className="p-6 font-black italic text-xl text-center text-brand-blue">600</td>
+                          <td className="p-6 font-black italic text-xl text-center text-brand-red">800</td>
                         </tr>
-                        <tr className="hover:bg-white/10 transition-colors">
-                          <td className="p-8 text-2xl font-black italic">الولايات الداخلية والجنوب</td>
-                          <td className="p-8 text-2xl font-black italic text-brand-red text-left">1200 دج</td>
+                        <tr className="hover:bg-white/10">
+                          <td className="p-6 font-black italic text-xl">بسكرة / الجلفة / تبسة / غرداية / ورقلة / الاغواط / النعامة / واد سوف</td>
+                          <td className="p-6 font-black italic text-xl text-center text-brand-blue">700</td>
+                          <td className="p-6 font-black italic text-xl text-center text-brand-red">900</td>
+                        </tr>
+                        <tr className="hover:bg-white/10">
+                          <td className="p-6 font-black italic text-xl">أدرار / بشار / البيض</td>
+                          <td className="p-6 font-black italic text-xl text-center text-brand-blue">900</td>
+                          <td className="p-6 font-black italic text-xl text-center text-brand-red">1150</td>
+                        </tr>
+                        <tr className="hover:bg-white/10">
+                          <td className="p-6 font-black italic text-xl">تمنراست / تندوف / إليزي</td>
+                          <td className="p-6 font-black italic text-xl text-center text-brand-blue">1250</td>
+                          <td className="p-6 font-black italic text-xl text-center text-brand-red">1450</td>
                         </tr>
                       </tbody>
                     </table>
@@ -437,9 +457,31 @@ export default function App() {
                         </select>
                       </div>
                       <div className="space-y-3">
-                        <label className="text-[10px] font-black uppercase text-stone-500 pr-4 italic">العنوان الكامل (البلدية والنهج)</label>
-                        <input name="address" required className="form-input" placeholder="اسم البلدية والشارع ورقم المنزل..." />
+                        <label className="text-[10px] font-black uppercase text-stone-500 pr-4 italic">طريقة الاستلام</label>
+                        <div className="grid grid-cols-2 gap-3 h-[70px]">
+                           <button 
+                             type="button"
+                             onClick={() => setDeliveryType('desk')}
+                             className={`rounded-2xl border-2 font-black italic transition-all flex flex-col items-center justify-center ${deliveryType === 'desk' ? 'border-brand-blue bg-brand-blue/10 text-white shadow-[0_0_15px_rgba(0,102,255,0.3)]' : 'border-white/5 bg-white/5 text-stone-500 hover:bg-white/10'}`}
+                           >
+                              <span className="text-base leading-none">مكتب ياليدين</span>
+                              <span className="text-[9px] mt-1 opacity-60">Desk Delivery</span>
+                           </button>
+                           <button 
+                             type="button"
+                             onClick={() => setDeliveryType('home')}
+                             className={`rounded-2xl border-2 font-black italic transition-all flex flex-col items-center justify-center ${deliveryType === 'home' ? 'border-brand-blue bg-brand-blue/10 text-white shadow-[0_0_15px_rgba(0,102,255,0.3)]' : 'border-white/5 bg-white/5 text-stone-500 hover:bg-white/10'}`}
+                           >
+                              <span className="text-base leading-none">باب المنزل</span>
+                              <span className="text-[9px] mt-1 opacity-60">Home Delivery</span>
+                           </button>
+                        </div>
                       </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <label className="text-[10px] font-black uppercase text-stone-500 pr-4 italic">العنوان الكامل {deliveryType === 'desk' ? '(الولاية والبلدية لفرع ياليدين)' : '(البلدية والنهج)'}</label>
+                      <input name="address" required className="form-input" placeholder={deliveryType === 'desk' ? "اسم البلدية ومكان المكتب..." : "اسم البلدية والشارع ورقم المنزل..."} />
                     </div>
 
                     <div className="bg-black/60 p-8 md:p-12 rounded-[40px] border border-white/5 space-y-8 shadow-2xl relative overflow-hidden">
